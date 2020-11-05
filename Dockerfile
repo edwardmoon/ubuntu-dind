@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:12.04
 
 MAINTAINER Billy Ray Teves <billyteves@gmail.com>
 
@@ -8,7 +8,11 @@ RUN apt-get update -qq && apt-get install -qqy \
     ca-certificates \
     curl \
     lxc \
-    iptables
+    iptables \
+    python3 \
+    python3-pip \
+    awscli && \
+    rm -rf /var/lib/apt/lists/*
     
 # Install Docker from Docker Inc. repositories.
 RUN curl -sSL https://get.docker.com/ | sh
