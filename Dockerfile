@@ -1,6 +1,8 @@
-FROM ubuntu:12.04
+FROM ubuntu:20.04
 
 MAINTAINER Billy Ray Teves <billyteves@gmail.com>
+
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Let's start with some basic stuff.
 RUN apt-get update -qq && apt-get install -qqy \
