@@ -9,15 +9,23 @@ RUN apt-get update -qq && apt-get install -qqy \
     apt-transport-https \
     ca-certificates \
     curl \
+    gnupg-agent \
     lxc \
     iptables \
     python3 \
     python3-pip \
+    software-properties-common \
+    sudo \
     awscli && \
     rm -rf /var/lib/apt/lists/*
     
 # Install Docker from Docker Inc. repositories.
-RUN curl -sSL https://get.docker.com/ | sh
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
+    apt-key fingerprint 0EBFCD88
+RUN add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" &&\
+   apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose && \
+   rm -rf /var/lib/apt/lists/*
 
 # Install the magic wrapper.
 ADD ./wrapdocker /usr/local/bin/wrapdocker
